@@ -1,0 +1,5 @@
+db.url = jdbc:mysql://localhost:****
+db.port = ****
+db.username = ****
+db.password = ****
+db.name = ****
