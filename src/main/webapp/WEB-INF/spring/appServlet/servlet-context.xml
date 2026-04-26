@@ -22,6 +22,6 @@
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 	
-	<context:component-scan	base-package="com.example.controller"/>
+	<context:component-scan	base-package="com.example.controller, com.example.exception"/>
 	
 </beans:beans>

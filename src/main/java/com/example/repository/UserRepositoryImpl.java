@@ -45,6 +45,9 @@ public class UserRepositoryImpl implements UserRepository {
 	public User getUserByNumber(int userNumber) {
 		String SQL = "SELECT * FROM user WHERE u_number = ?";
 		List<User> userByNumberTemp = template.query(SQL, new UserRowMapper(), userNumber);
+		if (userByNumberTemp.isEmpty()) {
+			return null;
+		}
 		User userByNumber = userByNumberTemp.get(0);
 		return userByNumber;
 	}

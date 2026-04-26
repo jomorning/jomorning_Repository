@@ -1,23 +1,25 @@
 package com.example.controller;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.domain.User;
+import com.example.exception.UserNumberException;
 import com.example.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UserController {
@@ -59,6 +61,18 @@ public class UserController {
 		model.addAttribute("one", userByNumber);
 		return "user";
 	}
+	
+	/* @ExceptionHandler(value={UserNumberException.class})
+	public ModelAndView handleError(HttpServletRequest req, UserNumberException exception) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("invalidUserNumber", exception.getUserNumber());
+		mav.addObject("exception", exception);
+		mav.addObject("url1", req.getRequestURL());
+		mav.addObject("url2", req.getQueryString());
+		mav.setViewName("errorUserNumber");
+		return mav;
+	} */
+	
 
 	@GetMapping("/users/range")
 	public String getUsersByRange(@RequestParam("minNum") int minNum, @RequestParam("maxNum") int maxNum, Model model) {
@@ -96,4 +110,5 @@ public class UserController {
 		userService.setDeleteUserByNumber(userNumber);
 		return "redirect:/users";
 	}
+	
 }

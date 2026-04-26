@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.User;
+import com.example.exception.UserNumberException;
 import com.example.repository.UserRepository;
 
 @Service
@@ -38,6 +39,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserByNumber(int userNumber) {
 		User userByNumber = userRepository.getUserByNumber(userNumber);
+		if (userByNumber == null) {
+			System.out.println("검색한 유저 번호 없음, UserNumber 예외 발생");			
+			throw new UserNumberException(userNumber);
+		}			
 		return userByNumber;
 	}
 
